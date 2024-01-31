@@ -9,7 +9,12 @@
         android:id="@+id/article_fragment"
         android:name="com.example.newsapp.fragment.article_fragment"
         android:label="fragment_article"
-        tools:layout="@layout/fragment_article" />
+        tools:layout="@layout/fragment_article" >
+
+<!--        <argument-->
+<!--            android:name="article"-->
+<!--            app:argType="com.example.newsapp.model.Article" />-->
+    </fragment>
     <fragment
         android:id="@+id/favoritefragment"
         android:name="com.example.newsapp.fragment.favoritefragment"
