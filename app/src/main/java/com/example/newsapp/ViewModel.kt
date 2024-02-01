@@ -81,9 +81,9 @@ class ViewModel(app: Application, val Repository: Repository) : AndroidViewModel
         Repository.upsert(article)
     }
 
-    private fun getFavorite() = Repository.getFavoriteNews()
+    fun getFavorite() = Repository.getFavoriteNews()
 
-    private fun deleteArticle(article: Article) = viewModelScope.launch {
+    fun deleteArticle(article: Article) = viewModelScope.launch {
         Repository.deleteArticle(article)
     }
 
