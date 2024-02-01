@@ -77,7 +77,7 @@ class ViewModel(app: Application, val Repository: Repository) : AndroidViewModel
         return Resource.Error(response.message())
     }
 
-    private fun insertToFavorite(article: Article) = viewModelScope.launch {
+    fun insertToFavorite(article: Article) = viewModelScope.launch {
         Repository.upsert(article)
     }
 
@@ -118,17 +118,17 @@ class ViewModel(app: Application, val Repository: Repository) : AndroidViewModel
         }
     }
 
-    private suspend fun searchNewsInternet(searchQuery: String){
+    private suspend fun searchNewsInternet(searchQuery: String) {
         newsSearchQuery = searchQuery
         searchNews.postValue(Resource.Loading())
-        try{
-            if(connection(this.getApplication())){
+        try {
+            if (connection(this.getApplication())) {
                 val response = Repository.searchNews(searchQuery, searchNewsPage)
                 searchNews.postValue(handleHeadlinesResponse(response))
             } else {
                 searchNews.postValue(Resource.Error("No internet"))
             }
-        } catch (t: Throwable){
+        } catch (t: Throwable) {
             when (t) {
                 is IOException -> headlines.postValue(Resource.Error("Unable to connect"))
                 else -> headlines.postValue(Resource.Error("No signal"))

@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, proFac).get(ViewModel::class.java)
 
-
         val navHost = supportFragmentManager.findFragmentById(R.id.nav_graph) as NavHostFragment
         val navController = navHost.navController
 
