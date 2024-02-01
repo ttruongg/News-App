@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/ic_home"
+        android:id="@+id/headlinesfragment"
         android:title="@string/action_home"
         android:icon="@drawable/ic_language" />
 
     <item
-        android:id="@+id/ic_favorite"
+        android:id="@+id/favoritefragment"
         android:title="@string/action_favorite"
         android:icon="@drawable/ic_favorite"/>
 
     <item
-        android:id="@+id/ic_search"
+        android:id="@+id/searchfragment"
         android:title="@string/action_search"
         android:icon="@drawable/ic_search"/>
 </menu>
