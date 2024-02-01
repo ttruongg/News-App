@@ -59,8 +59,7 @@ class headlinesfragment : Fragment() {
 
         headlinesError = view.findViewById(R.id.itemError)
 
-        val inflater =
-            requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view: View = inflater.inflate(R.layout.error, null)
 
         btnretry = view.findViewById(R.id.btnRetry)
@@ -106,6 +105,10 @@ class headlinesfragment : Fragment() {
                 }
             }
         })
+
+        btnretry.setOnClickListener {
+            viewModel.getHeadlines("us")
+        }
 
 
     }
