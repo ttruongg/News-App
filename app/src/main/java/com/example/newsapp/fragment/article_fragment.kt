@@ -44,6 +44,7 @@ class article_fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding = FragmentArticleBinding.bind(view)
         viewModel = (activity as MainActivity).viewModel
         var article = args.article
 

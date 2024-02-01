@@ -57,7 +57,7 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
 
         holder.itemView.apply {
             Glide.with(this).load(article.urlToImage).into(imgArticle)
-            articleSource.text = article.source?.name
+            articleSource.text = article.source?.name ?: "Unknown Source"
             articletitle.text = article.title
             articleDescription.text = article.description
             articleDatetime.text = article.publishedAt

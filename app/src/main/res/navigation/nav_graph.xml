@@ -10,7 +10,6 @@
         android:name="com.example.newsapp.fragment.article_fragment"
         android:label="fragment_article"
         tools:layout="@layout/fragment_article" >
-
         <argument
             android:name="article"
             app:argType="com.example.newsapp.model.Article" />
