@@ -100,7 +100,6 @@ class headlinesfragment : Fragment() {
             viewModel.getHeadlines("us")
         }
 
-
     }
 
     override fun onCreateView(

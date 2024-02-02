@@ -1,9 +1,13 @@
 package com.example.newsapp.fragment
 
+import android.graphics.Canvas
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -33,7 +37,6 @@ class favoritefragment : Fragment() {
     lateinit var binding: FragmentFavoriteBinding
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentFavoriteBinding.bind(view)
@@ -49,7 +52,7 @@ class favoritefragment : Fragment() {
         }
         val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-            ItemTouchHelper.RIGHT or ItemTouchHelper.RIGHT
+            ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
         ) {
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -69,6 +72,62 @@ class favoritefragment : Fragment() {
                     }
                     show()
                 }
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+                var icon: Drawable?
+                var background: ColorDrawable
+                val itemView = viewHolder.itemView
+                val backgroundCornerOffset = 20
+
+
+                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)
+                background = ColorDrawable(ContextCompat.getColor(requireContext(), R.color.red))
+
+
+                assert(icon != null)
+                val iconMargin = (itemView.height - icon!!.intrinsicHeight) / 2
+                val iconTop = itemView.top + (itemView.height - icon.intrinsicHeight) / 2
+                val iconBottom = iconTop + icon.intrinsicHeight
+
+                if (dX > 0) { //  right
+                    val iconLeft = itemView.left + iconMargin
+                    val iconRight = itemView.left + iconMargin + icon.intrinsicWidth
+                    icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+                    background.setBounds(
+                        itemView.left, itemView.top,
+                        itemView.left + dX.toInt() + backgroundCornerOffset, itemView.bottom
+                    )
+                } else if (dX < 0) { //  left
+                    val iconLeft = itemView.right - iconMargin - icon.intrinsicWidth
+                    val iconRight = itemView.right - iconMargin
+                    icon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+                    background.setBounds(
+                        itemView.right + dX.toInt() - backgroundCornerOffset,
+                        itemView.top, itemView.right, itemView.bottom
+                    )
+                } else { //  unSwiped
+                    background.setBounds(0, 0, 0, 0)
+                }
+                background.draw(c)
+                icon.draw(c)
             }
         }
 

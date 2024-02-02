@@ -124,7 +124,7 @@ class ViewModel(app: Application, val Repository: Repository) : AndroidViewModel
         try {
             if (connection(this.getApplication())) {
                 val response = Repository.searchNews(searchQuery, searchNewsPage)
-                searchNews.postValue(handleHeadlinesResponse(response))
+                searchNews.postValue(SearchNewsResponse(response))
             } else {
                 searchNews.postValue(Resource.Error("No internet"))
             }
