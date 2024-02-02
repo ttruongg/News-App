@@ -34,9 +34,6 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class headlinesfragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     lateinit var viewModel: ViewModel
     lateinit var adapterArticle: ArticleAdapter
@@ -45,13 +42,6 @@ class headlinesfragment : Fragment() {
     lateinit var headlinesError: CardView
     lateinit var binding: FragmentHeadlinesBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -83,7 +73,7 @@ class headlinesfragment : Fragment() {
                     hideError()
                     response.data?.let { newsReponse ->
                         adapterArticle.differ.submitList(newsReponse.articles.toList())
-                        val totalPages = newsReponse.totalResults / Constant.QUERY_PAGE_SIZE
+                        val totalPages = newsReponse.totalResults / Constant.QUERY_PAGE_SIZE + 2
                         isLastpage = viewModel.headlinesPage == totalPages
                         if (isLastpage) {
                             binding.recyclerViewHeadlines.setPadding(0, 0, 0, 0)
@@ -121,24 +111,6 @@ class headlinesfragment : Fragment() {
         return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment headlinesfragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) = headlinesfragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_PARAM1, param1)
-                putString(ARG_PARAM2, param2)
-            }
-        }
-    }
 
     var isError = false
     var isLoading = false

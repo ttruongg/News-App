@@ -40,9 +40,6 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class searchfragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     lateinit var viewModel: ViewModel
     lateinit var AdapterArticle: ArticleAdapter
@@ -51,13 +48,6 @@ class searchfragment : Fragment() {
     lateinit var searchError: CardView
     lateinit var binding: FragmentSearchBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,13 +74,13 @@ class searchfragment : Fragment() {
 
         }
         var job: Job? = null
-        binding.searchEdt.addTextChangedListener() { edttable ->
+        binding.searchEdt.addTextChangedListener() { edt ->
             job?.cancel()
             job = MainScope().launch {
                 delay(TIME_DELAY)
-                edttable?.let {
-                    if (edttable.toString().isNotEmpty()) {
-                        viewModel.searchNews(edttable.toString())
+                edt?.let {
+                    if (edt.toString().isNotEmpty()) {
+                        viewModel.searchNews(edt.toString())
                     }
 
                 }
@@ -173,7 +163,7 @@ class searchfragment : Fragment() {
             val isNotLoadingAndNotLastPage = !isLoading && !isLastpage
             val isLastItem = firstItemPosition + visibleItemCount >= totalItemCount
             val isNotBegining = firstItemPosition >= 0
-            val isTotalMoreThanVisible = totalItemCount >= Constant.QUERY_PAGE_SIZE
+            val isTotalMoreThanVisible = totalItemCount >= Constant.QUERY_PAGE_SIZE + 2
 
             val shouldPaginate =
                 isNoErrors && isNotLoadingAndNotLastPage && isLastItem && isNotBegining && isTotalMoreThanVisible && isScrolling
@@ -213,23 +203,5 @@ class searchfragment : Fragment() {
         return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment searchfragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            searchfragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }
