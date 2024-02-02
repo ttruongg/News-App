@@ -48,7 +48,9 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = differ.currentList.get(position)
-
+        if (article == null){
+            return;
+        }
         imgArticle = holder.itemView.findViewById(R.id.Image)
         articleSource = holder.itemView.findViewById(R.id.source)
         articletitle = holder.itemView.findViewById(R.id.title)
@@ -75,7 +77,7 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
 
     private var onItemClickListener: ((Article) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (Article) -> Unit){
+    fun setOnItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener
     }
 }
